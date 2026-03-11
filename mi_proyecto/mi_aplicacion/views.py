@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.views import View
 from mi_aplicacion.models import Escuela, Maestro
-from mi_aplicacion.form import EscuelaForm
+from mi_aplicacion.form import EscuelaForm, MaestroForm
 
 class Home(View):
     def get(self, request):
@@ -90,7 +90,15 @@ class Maestros(View):
         return render(request, "maestros/maestros.html", cdx)
 
     
-
+class MaestroAlta(View):
+    def get(self, request):
+        form = MaestroForm()
+        cdx={
+            "titulo":"Maestros",
+            "subtitulo":"Alta de Maestro",
+            "form":form
+        }
+        return render(request, "maestros/CRUD.html", cdx)
 
 
 
