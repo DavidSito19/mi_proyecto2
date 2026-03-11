@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block contenido %}
+<!DOCTYPE html>
+<html>
+<title>{{ titulo }}</title>
+<meta name="viewport" content="width=device -width , initial -scale=1">
+
+<body>
+    <form method="post" enctype="multipart/form -data">
+        {% csrf_token %}
+        <table>
+            {{ form }}
+        </table>
+        <br>
+        <input type="submit" value=Hacer>
+    </form>
+</body>
+
+</html>
+{% endblock %}
