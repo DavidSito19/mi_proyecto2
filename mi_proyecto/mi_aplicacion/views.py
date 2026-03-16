@@ -105,6 +105,44 @@ class MaestroAlta(View):
             form.save()
             return redirect('maestros')
         return redirect("home")
+    
+class MaestroEditar(View):
+    def get(self, request, id):
+        maestro = Maestro.objects.filter(id=id).first()
+        form = MaestroForm(instance = maestro)
+        cdx={
+            "titulo":"Maestro",
+            "subtitulo":"Editar Maestro",
+            "form":form
+        }
+        return render (request, "maestros/CRUD.html", cdx)
+
+    def post(self, request, id):
+        maestro = Maestro.objects.filter(id=id).first()
+        form = MaestroForm(request.POST, request.FILES, instance = maestro)
+        if form.is_valid():
+            form.save()
+            return redirect('maestros')
+        return redirect("home")
+
+class MaestroEliminar(View):
+    def get(self, request, id):
+        maestro = Maestro.objects.filter(id=id).first()
+        form = MaestroForm(instance = maestro)
+        cdx={
+            "titulo":"Maestro",
+            "subtitulo":"Eliminar Maestro",
+            "form":form
+        }
+        return render (request, "maestros/CRUD.html", cdx)
+
+    def post(self, request, id):
+        maestros = Maestro.objects.filter(id=id).first()
+        form = MaestroForm(request.POST, request.FILES, instance = maestros)
+        if form.is_valid():
+            maestros.delete()
+            return redirect('maestros')
+        return redirect("home")
 
 
 
