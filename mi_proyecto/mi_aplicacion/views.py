@@ -99,6 +99,12 @@ class MaestroAlta(View):
             "form":form
         }
         return render(request, "maestros/CRUD.html", cdx)
+    def post(self, request):
+        form = MaestroForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('maestros')
+        return redirect("home")
 
 
 
