@@ -29,7 +29,8 @@ class EscuelaAlta(View):
         cdx={
             "titulo":"Escuela",
             "subtitulo":"Alta de Escuela",
-            "form":form
+            "form":form,
+            "action_type":"create"
         }
         return render(request, "escuelas/CRUD.html", cdx)
 
@@ -47,7 +48,8 @@ class EscuelaEditar(View):
         cdx={
             "titulo":"Escuela",
             "subtitulo":"Editar Escuela",
-            "form":form
+            "form":form,
+            "action_type":"edit"
         }
         return render (request, "escuelas/CRUD.html", cdx)
 
@@ -66,7 +68,8 @@ class EscuelaEliminar(View):
         cdx={
             "titulo":"Escuela",
             "subtitulo":"Eliminar Escuela",
-            "form":form
+            "form":form,
+            "action_type":"delete"
         }
         return render (request, "escuelas/CRUD.html", cdx)
 
@@ -92,15 +95,16 @@ class Maestros(View):
     
 class MaestroAlta(View):
     def get(self, request):
-        form = MaestroForm()
+        form = MaestroForm(action_type='create')
         cdx={
             "titulo":"Maestros",
             "subtitulo":"Alta de Maestro",
-            "form":form
+            "form":form,
+            "action_type":"create"
         }
         return render(request, "maestros/CRUD.html", cdx)
     def post(self, request):
-        form = MaestroForm(request.POST, request.FILES)
+        form = MaestroForm(request.POST, request.FILES, action_type='create')
         if form.is_valid():
             form.save()
             return redirect('maestros')
@@ -109,17 +113,18 @@ class MaestroAlta(View):
 class MaestroEditar(View):
     def get(self, request, id):
         maestro = Maestro.objects.filter(id=id).first()
-        form = MaestroForm(instance = maestro)
+        form = MaestroForm(instance=maestro, action_type='edit')
         cdx={
             "titulo":"Maestro",
             "subtitulo":"Editar Maestro",
-            "form":form
+            "form":form,
+            "action_type":"edit"
         }
         return render (request, "maestros/CRUD.html", cdx)
 
     def post(self, request, id):
         maestro = Maestro.objects.filter(id=id).first()
-        form = MaestroForm(request.POST, request.FILES, instance = maestro)
+        form = MaestroForm(request.POST, request.FILES, instance=maestro, action_type='edit')
         if form.is_valid():
             form.save()
             return redirect('maestros')
@@ -128,21 +133,20 @@ class MaestroEditar(View):
 class MaestroEliminar(View):
     def get(self, request, id):
         maestro = Maestro.objects.filter(id=id).first()
-        form = MaestroForm(instance = maestro)
+        form = MaestroForm(instance=maestro, action_type='delete')
         cdx={
             "titulo":"Maestro",
             "subtitulo":"Eliminar Maestro",
-            "form":form
+            "form":form,
+            "action_type":"delete"
         }
         return render (request, "maestros/CRUD.html", cdx)
 
     def post(self, request, id):
         maestros = Maestro.objects.filter(id=id).first()
-        form = MaestroForm(request.POST, request.FILES, instance = maestros)
+        form = MaestroForm(request.POST, request.FILES, instance=maestros, action_type='delete')
         if form.is_valid():
             maestros.delete()
             return redirect('maestros')
         return redirect("home")
-
-
-
+    

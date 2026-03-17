@@ -4,10 +4,10 @@
 
 
 {% block contenido %}
-
-<form method="post" enctype="multipart/form -data">
-{% csrf_token %}
-{% crispy form %}
-</form>
-
+<div class="{% if action_type == 'delete' %}bg-danger{% elif action_type == 'edit' %}bg-warning{% else %}bg-success{% endif %} p-3">
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% crispy form %}
+    </form>
+</div>
 {% endblock %}
